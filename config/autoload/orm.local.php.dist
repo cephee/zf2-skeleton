@@ -7,7 +7,7 @@ return [
                 'params' => [
                     'host' => '@host@',
                     'port' => '@port@',
-                    'user' =>'@username@',
+                    'username' =>'@username@',
                     'password' => '@password@',
                     'dbname' => '@dbname@'
                 ]
