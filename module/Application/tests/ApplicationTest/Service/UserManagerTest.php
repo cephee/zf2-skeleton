@@ -32,4 +32,13 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame($result, $userManager->getList());
 	}
+
+	/**
+	 * @expectedException \Application\Service\Exception
+	 */
+	public function testGetListThrowsExceptionWhenNoRepositoryIsProvided()
+	{
+		$userManager = new UserManager();
+		$userManager->getList();
+	}
 }

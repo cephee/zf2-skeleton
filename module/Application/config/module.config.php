@@ -87,6 +87,16 @@ return array(
         ),
         'invokables' => [
             'usermanager' => 'Application\Service\UserManager'
+        ],
+        'initializers' => [
+            function ($instance, \Zend\ServiceManager\ServiceLocatorInterface $sm) {
+                if ($instance instanceof \Application\Service\UserManager) {
+                    $repository = $sm->get('Doctrine\ORM\EntityManager')
+                        ->getRepository('Application\Entity\User');
+
+                    $instance->setRepository($repository);
+                }
+            }
         ]
     ),
     'translator' => array(

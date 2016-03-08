@@ -4,16 +4,19 @@ namespace Application\Controller;
 use Application\Service\UserManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+
 class UserController extends AbstractActionController
 {
-	public function listAction()
+	public function indexAction()
 	{
 		/** @var UserManager $userManager */
 		$userManager = $this->getServiceLocator()->get('userManager');
 
-		return new ViewModel([
+		$data = [
 			'users' => $userManager->getList()
-		]);
+		];
+//		var_dump($data);
+		return new ViewModel($data);
 	}
 
 	public function addAction()
