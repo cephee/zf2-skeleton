@@ -11,10 +11,9 @@ Feature: User edition
 	And the "Lastname" field should contain "Body"
 
 
-  Scenario Outline: Display an error message when on non exist users
+  Scenario Outline: Display an error message on non exist users
 	Given I am on "<url>"
 	Then the response status code should be 404
-	And I should see " The user has not been found"
 
 	Examples:
 	| url 			|
