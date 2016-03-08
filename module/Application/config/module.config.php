@@ -6,7 +6,6 @@
  * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 return array(
     'router' => array(
         'routes' => array(
@@ -26,10 +25,10 @@ return array(
                     'route'    => '/user',
                     'defaults' => array(
                         'controller' => 'Application\Controller\User',
-                        'action'     => 'index',
+                        'action'     => 'list',
                     ),
                 ),
-                'may_terminate' =>true,
+                'may_terminate' => true,
                 'child_routes' => [
                     'add' => array(
                         'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -103,7 +102,6 @@ return array(
             'Application\Controller\User' => 'Application\Controller\UserController'
         ),
     ),
-
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
@@ -127,4 +125,34 @@ return array(
             ),
         ),
     ),
+    'doctrine' =>
+        [
+            'driver' =>
+                [
+                    'application_driver' =>
+                        [
+                            'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                            'cache' => 'array',
+                            'paths' => [ dirname(__DIR__) . '/src' ]
+                        ],
+                    'orm_default' =>
+                        [
+                            'drivers' =>
+                                [
+                                    'Application\Entity' => 'application_driver',
+                                ]
+                        ]
+                ],
+            'configuration' =>
+                [
+                    'orm_default' =>
+                        [
+                            'generate_proxies' => false,
+                            'metadata_cache' => 'array',
+                            'query_cache' => 'array',
+                            'result_cache' => 'array',
+                            'driver' => 'orm_default'
+                        ]
+                ],
+        ],
 );
