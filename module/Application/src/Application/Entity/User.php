@@ -20,7 +20,7 @@ class User
 	/**
 	 * @var int
 	 * @ORM\Id
-	 * @ORM\Column(type="Int")
+	 * @ORM\Column(type="integer")
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	protected $id;

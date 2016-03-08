@@ -25,7 +25,7 @@ return array(
                     'route'    => '/user',
                     'defaults' => array(
                         'controller' => 'Application\Controller\User',
-                        'action'     => 'list',
+                        'action'     => 'index',
                     ),
                 ),
                 'may_terminate' => true,
@@ -84,7 +84,10 @@ return array(
         ),
         'aliases' => array(
             'entityManager' => 'Doctrine\ORM\EntityManager'
-        )
+        ),
+        'invokables' => [
+            'usermanager' => 'Application\Service\UserManager'
+        ]
     ),
     'translator' => array(
         'locale' => 'en_US',

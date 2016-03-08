@@ -59,5 +59,14 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
 
         $this->temporaryUser = $user;
     }
+    /**
+     * @AfterScenario @cleanup
+     */
+    public function cleanup(\Behat\Behat\Hook\Scope\AfterScenarioScope $scope)
+    {
+        if ($this->temporaryUser) {
+            $this->getEntityManager()->remove($this->temporaryUser);
+            $this->getEntityManager()->flush();
+        }
+    }
 }
-
