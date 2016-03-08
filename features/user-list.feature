@@ -15,12 +15,13 @@ Feature: User list feature
 
   @cleanup
   Scenario: the user list should have an edit button
-	Given I am on "/user"
-	And I have a stored user with:
+	Given I have a stored user with:
 	  | Firstname | Joffrey |
-	  | Lastname  | Body    |
+	  | Lastname  | Body |
+	And I am on "/user"
 	When I follow "Edit"
-	And the response status code should be 200
-	Then I should see "Joffrey"
-	And I should see "Body"
+	Then the response status code should be 200
+	And the url should match
+	  | /user/  | %temporaryUser% |
+
 

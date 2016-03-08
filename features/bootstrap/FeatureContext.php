@@ -69,4 +69,35 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
             $this->getEntityManager()->flush();
         }
     }
+
+    public function getUrl(array $parts){
+
+        $url = '';
+        foreach ($parts as $part){
+
+            if(isset($this->{trim($part, '%')})){
+                $url .= $this->{trim($part, '%')}->getId();
+            }else{
+                $url .= $part;
+            }
+        }
+        return $url;
+    }
+
+    /**
+     * @When the url should match
+     */
+    public function theUrlShouldMatch(TableNode $table)
+    {
+         return $this->assertPageAddress($this->getUrl($table->getRow(0)));
+    }
+
+    /**
+     * @When I go to:
+     */
+    public function iGoTo(TableNode $table)
+    {
+        return $this->visit($this->getUrl($table->getRow(0)));
+    }
+
 }

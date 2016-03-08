@@ -15,6 +15,21 @@ class UserManager
 	}
 	public function getList()
 	{
+
+		if (!$this->repository){
+
+			throw new Exception;
+		}
 		return $this->repository->findAll();
+	}
+
+	public function get($id){
+
+
+		if (!$this->repository){
+
+			throw new Exception;
+		}
+		return $this->repository->find($id);
 	}
 }

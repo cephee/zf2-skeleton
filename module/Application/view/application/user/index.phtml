@@ -14,7 +14,7 @@
 		    <tr>
 			        <td><?= $user->getFirstname() ?></td>
 			        <td><?= $user->getLastname() ?></td>
-			        <td><a href="/user/edit/<?= $user->getId() ?>" class="btn btn-info">Edit</a></td>
+			        <td><a href="/user/<?= $user->getId() ?>" class="btn btn-info">Edit</a></td>
 		    </tr>
 	<?php endforeach; ?>
 </table>

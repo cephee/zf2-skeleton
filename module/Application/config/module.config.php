@@ -30,6 +30,16 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => [
+                    'edit' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'    => '/[:id]',
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\User',
+                                'action'     => 'edit',
+                            ),
+                        ),
+                    ),
                     'add' => array(
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => array(
@@ -39,7 +49,9 @@ return array(
                                 'action'     => 'add',
                             ),
                         ),
-                    )
+                    ),
+
+
                 ]
             ),
             // The following is a route to simplify getting started creating

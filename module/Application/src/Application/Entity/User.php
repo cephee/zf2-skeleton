@@ -25,4 +25,64 @@ class User
 	 */
 	protected $id;
 
+	/**
+	 * @var string
+	 * @ORM\Column(type="string")
+	 */
+	protected $firstname;
+
+	/**
+	 * @var string
+	 * @ORM\Column(type="string")
+	 */
+	protected $lastname;
+
+
+
+
+
+	/**
+	 * @return string
+	 */
+	public function getFirstname()
+	{
+		return $this->firstname;
+	}
+
+	/**
+	 * @param string $firstname
+	 * @return User
+	 */
+	public function setFirstname($firstname)
+	{
+		$this->firstname = $firstname;
+		return $this;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLastname()
+	{
+		return $this->lastname;
+	}
+
+	/**
+	 * @param string $lastname
+	 * @return User
+	 */
+	public function setLastname($lastname)
+	{
+		$this->lastname = $lastname;
+		return $this;
+	}
+
+
+
+	public function getId()
+	{
+		return $this->id;
+	}
+
 }
