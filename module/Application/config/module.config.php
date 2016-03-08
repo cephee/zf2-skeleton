@@ -83,6 +83,9 @@ return array(
         'factories' => array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
         ),
+        'aliases' => array(
+            'entityManager' => 'Doctrine\ORM\EntityManager'
+        )
     ),
     'translator' => array(
         'locale' => 'en_US',

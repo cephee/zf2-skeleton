@@ -13,6 +13,11 @@ use Behat\Behat\Tester\Exception\PendingException;
 class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements Context, SnippetAcceptingContext
 {
     /**
+     * @var \Zend\ServiceManager\ServiceManager
+     */
+    protected static $serviceManager;
+
+    /**
      * Initializes context.
      *
      * Every scenario gets its own context instance.
@@ -21,6 +26,20 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
      */
     public function __construct()
     {
+        self::boostrapApplication();
+
+    }
+
+    public static function boostrapApplication()
+    {
+        if(is_null(static::$serviceManager)){
+            \ApplicationTest\Bootstrap::init();
+            static::$serviceManager = \ApplicationTest\Bootstrap::getServiceManager();
+        }
+    }
+
+    protected function getEntityMaager(){
+        return static::$serviceManager->get('entityManager');
     }
 
     /**
@@ -28,6 +47,19 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
      */
     public function iHaveAStoredUserWith(TableNode $table)
     {
+        /**
+         * @var \Zend\Stdlib\Hydrator\ClassMethods $hydrator
+         */
+        $hydrator = static::$serviceManager->get('hydratorManager')->get('classMethods');
+
+
+        $user = new Application\Entity\User();
+
+        $hydrator->hydrate($table->getRowsHash(), $user);
+
+        $this->getEntityMaager()->persist($user);
+        $this->getEntityMaager()->flush();
+
         throw new PendingException();
     }
 
@@ -36,6 +68,9 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
      */
     public function iShouldBeOnTheUserEditPage()
     {
+
+
+
         throw new PendingException();
     }
 
