@@ -20,6 +20,29 @@ return array(
                     ),
                 ),
             ),
+            'user' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/user',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\User',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' =>true,
+                'child_routes' => [
+                    'add' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route'    => '/add',
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\User',
+                                'action'     => 'add',
+                            ),
+                        ),
+                    )
+                ]
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
