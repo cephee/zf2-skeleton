@@ -1,23 +1,21 @@
 <?php
-
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Tester\Exception\PendingException;
-
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements Context, SnippetAcceptingContext
 {
-    
+
     /** @var \Zend\ServiceManager\ServiceManager */
     protected static $serviceManager;
-    
+
     /** @var  \Application\Entity\User */
     protected $temporaryUser;
-    
+
     /**
      * Initializes context.
      *
@@ -29,7 +27,7 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
     {
         self::bootstrapApplication();
     }
-    
+
     public static function bootstrapApplication()
     {
         if (is_null(static::$serviceManager)) {
@@ -37,7 +35,6 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
             static::$serviceManager = \ApplicationTest\Bootstrap::getServiceManager();
         }
     }
-
     /**
      * @return \Doctrine\ORM\EntityManager
      */
@@ -45,7 +42,6 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
     {
         return static::$serviceManager->get('entityManager');
     }
-
     /**
      * @Given I have a stored user with:
      */
@@ -53,17 +49,16 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
     {
         /** @var \Zend\Stdlib\Hydrator\ClassMethods $hydrator */
         $hydrator = static::$serviceManager->get('hydratorManager')->get('classMethods');
-        
+
         $user = new \Application\Entity\User();
-        
+
         $hydrator->hydrate($table->getRowsHash(), $user);
-        
+
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
-        
+
         $this->temporaryUser = $user;
     }
-
     /**
      * @AfterScenario @cleanup
      */
@@ -74,7 +69,7 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
             $this->getEntityManager()->flush();
         }
     }
-    
+
     protected function getUrl(array $parts)
     {
         $url = '';
@@ -87,7 +82,6 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
         }
         return $url;
     }
-
     /**
      * @Then the url should match:
      */
@@ -95,13 +89,12 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
     {
         return $this->assertPageAddress($this->getUrl($table->getRow(0)));
     }
-
     /**
      * @When I go to:
+     * @Given I am on:
      */
     public function iGoTo(TableNode $table)
     {
         return $this->visit($this->getUrl($table->getRow(0)));
     }
-
 }

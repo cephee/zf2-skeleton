@@ -6,7 +6,6 @@
  * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 return array(
     'router' => array(
         'routes' => array(
@@ -102,10 +101,11 @@ return array(
         'initializers' => [
             function ($instance, \Zend\ServiceManager\ServiceLocatorInterface $sm) {
                 if ($instance instanceof \Application\Service\UserManager) {
-                    $repository = $sm->get('Doctrine\ORM\EntityManager')
-                        ->getRepository('Application\Entity\User');
-                    
-                    $instance->setRepository($repository);
+                    $entityManager = $sm->get('Doctrine\ORM\EntityManager');
+                    $repository = $entityManager->getRepository('Application\Entity\User');
+
+                    $instance->setRepository($repository)
+                        ->setEntityManager($entityManager);
                 }
             }
         ]
@@ -126,7 +126,6 @@ return array(
             'Application\Controller\User' => 'Application\Controller\UserController'
         ),
     ),
-
     'view_helpers'    =>
         [
             'invokables' =>
@@ -136,7 +135,6 @@ return array(
                     'commit'      => 'Application\View\Helper\Commit',
                 ]
         ],
-
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
