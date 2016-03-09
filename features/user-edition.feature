@@ -10,6 +10,7 @@ Feature: User edition
 	Then the "Firstname" field should contain "Joffrey"
 	And the "Lastname" field should contain "Body"
 
+#  Scenario Outline -> permet de faire un scénario réutilisable
 
   Scenario Outline: Display an error message on non exist users
 	Given I am on "<url>"
